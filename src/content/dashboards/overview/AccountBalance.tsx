@@ -18,6 +18,7 @@ import TrendingUp from '@mui/icons-material/TrendingUp';
 import Text from 'src/components/Text';
 import Chart from 'react-apexcharts';
 import type { ApexOptions } from 'apexcharts';
+import { Link as RouterLink } from 'react-router-dom';
 
 const AvatarSuccess = styled(Avatar)(
   ({ theme }) => `
@@ -168,18 +169,38 @@ function AccountBalance() {
                 </Box>
               </Box>
             </Box>
-            {/* <Grid container spacing={3}>
+            <Grid container spacing={1}>
               <Grid sm item>
-                <Button fullWidth variant="outlined">
-                  Send
+                <Button
+                  component={RouterLink}
+                  to="/management/risk"
+                  fullWidth
+                  variant="outlined"
+                >
+                  Max Payout: KES 100,000
                 </Button>
               </Grid>
               <Grid sm item>
-                <Button fullWidth variant="contained">
-                  Deposit
+                <Button
+                  component={RouterLink}
+                  to="/management/risk"
+                  fullWidth
+                  variant="outlined"
+                >
+                  Max BetAmount: KES 100
                 </Button>
               </Grid>
-            </Grid> */}
+              <Grid sm item>
+                <Button
+                  component={RouterLink}
+                  to="/management/risk"
+                  fullWidth
+                  variant="outlined"
+                >
+                  Min BetAmount: KES 10
+                </Button>
+              </Grid>
+            </Grid>
           </Box>
         </Grid>
         <Grid

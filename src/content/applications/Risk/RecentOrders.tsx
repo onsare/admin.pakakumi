@@ -1,5 +1,5 @@
 import { Card } from '@mui/material';
-import { CryptoOrder } from 'src/models/crypto_order';
+import { CryptoOrder } from 'src/types/crypto_order';
 import RecentOrdersTable from './RecentOrdersTable';
 import { subDays } from 'date-fns';
 
@@ -7,10 +7,10 @@ function RecentOrders() {
   const cryptoOrders: CryptoOrder[] = [
     {
       id: '1',
-      orderDetails: 'Deposit',
-      orderDate: new Date().getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'completed',
-      orderID: 'VUVX709ET7BY',
+      orderID: 'VUVX70',
       sourceName: 'MPESA',
       sourceDesc: '0712***',
       amountCrypto: 34.4565,
@@ -20,10 +20,10 @@ function RecentOrders() {
     },
     {
       id: '2',
-      orderDetails: 'Deposit',
-      orderDate: subDays(new Date(), 1).getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'completed',
-      orderID: '23M3UOG65G8K',
+      orderID: '23M3UO',
       sourceName: 'MPESA',
       sourceDesc: '0712***',
       amountCrypto: 6.58454334,
@@ -33,10 +33,10 @@ function RecentOrders() {
     },
     {
       id: '3',
-      orderDetails: 'Deposit',
-      orderDate: subDays(new Date(), 5).getTime(),
-      status: 'failed',
-      orderID: 'F6JHK65MS818',
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
+      status: 'completed',
+      orderID: 'F6JHK6',
       sourceName: 'MPESA',
       sourceDesc: '0712***',
       amountCrypto: 6.58454334,
@@ -46,10 +46,10 @@ function RecentOrders() {
     },
     {
       id: '4',
-      orderDetails: 'Deposit',
-      orderDate: subDays(new Date(), 55).getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'completed',
-      orderID: 'QJFAI7N84LGM',
+      orderID: 'QJFAI7',
       sourceName: 'MPESA',
       sourceDesc: '0712***',
       amountCrypto: 6.58454334,
@@ -59,10 +59,10 @@ function RecentOrders() {
     },
     {
       id: '5',
-      orderDetails: 'Deposit',
-      orderDate: subDays(new Date(), 56).getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'pending',
-      orderID: 'BO5KFSYGC0YW',
+      orderID: 'BO5KFS',
       sourceName: 'MPESA',
       sourceDesc: '0712***',
       amountCrypto: 6.58454334,
@@ -72,10 +72,10 @@ function RecentOrders() {
     },
     {
       id: '6',
-      orderDetails: 'Deposit',
-      orderDate: subDays(new Date(), 33).getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'completed',
-      orderID: '6RS606CBMKVQ',
+      orderID: '6RS606',
       sourceName: 'MPESA',
       sourceDesc: '0712***',
       amountCrypto: 6.58454334,
@@ -85,10 +85,10 @@ function RecentOrders() {
     },
     {
       id: '7',
-      orderDetails: 'Deposit',
-      orderDate: new Date().getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'pending',
-      orderID: '479KUYHOBMJS',
+      orderID: '479KUY',
       sourceName: 'MPESA',
       sourceDesc: '*** 1212',
       amountCrypto: 2.346546,
@@ -99,9 +99,9 @@ function RecentOrders() {
     {
       id: '8',
       orderDetails: 'Paypal Withdraw',
-      orderDate: subDays(new Date(), 22).getTime(),
+      orderDate: '25/11, 19:00',
       status: 'completed',
-      orderID: 'W67CFZNT71KR',
+      orderID: 'W67CFZ',
       sourceName: 'Paypal Account',
       sourceDesc: '0712***',
       amountCrypto: 3.345456,
@@ -111,10 +111,10 @@ function RecentOrders() {
     },
     {
       id: '9',
-      orderDetails: 'Deposit',
-      orderDate: subDays(new Date(), 11).getTime(),
+      orderDetails: '1 X 2',
+      orderDate: '25/11, 19:00',
       status: 'completed',
-      orderID: '63GJ5DJFKS4H',
+      orderID: '63GJ5D',
       sourceName: 'MPESA',
       sourceDesc: '*** 2222',
       amountCrypto: 1.4389567945,
@@ -125,9 +125,9 @@ function RecentOrders() {
     {
       id: '10',
       orderDetails: 'Wallet Transfer',
-      orderDate: subDays(new Date(), 123).getTime(),
+      orderDate: '25/11, 19:00',
       status: 'failed',
-      orderID: '17KRZHY8T05M',
+      orderID: '17KRZH',
       sourceName: 'Wallet Transfer',
       sourceDesc: "John's Cardano Wallet",
       amountCrypto: 765.5695,

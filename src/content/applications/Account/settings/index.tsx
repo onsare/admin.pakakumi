@@ -47,7 +47,7 @@ function ManagementUserSettings() {
           alignItems="stretch"
           spacing={3}
         >
-          <Grid item xs={12}>
+          <Grid item xs={12} mt={3}>
             <TabsWrapper
               onChange={handleTabsChange}
               value={currentTab}

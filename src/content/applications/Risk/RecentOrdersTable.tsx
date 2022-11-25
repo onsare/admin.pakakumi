@@ -26,7 +26,7 @@ import {
 } from '@mui/material';
 
 import Label from 'src/components/Label';
-import { CryptoOrder, CryptoOrderStatus } from 'src/models/crypto_order';
+import { CryptoOrder, CryptoOrderStatus } from 'src/types/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import BulkActions from './BulkActions';
@@ -202,7 +202,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
               </FormControl>
             </Box>
           }
-          title="Transactions"
+          title="Bets"
         />
       )}
       <Divider />
@@ -218,10 +218,15 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                   onChange={handleSelectAllCryptoOrders}
                 />
               </TableCell>
+              <TableCell>Ref ID</TableCell>
               <TableCell>Type</TableCell>
-              <TableCell>Order ID</TableCell>
-              <TableCell>Source</TableCell>
+              <TableCell>Competition</TableCell>
+              <TableCell>Event</TableCell>
+              <TableCell>Odd</TableCell>
               <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">WHT</TableCell>
+              <TableCell align="right">Excise</TableCell>
+              <TableCell align="right">Payout</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
@@ -247,20 +252,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       value={isCryptoOrderSelected}
                     />
                   </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.orderDetails}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {format(cryptoOrder.orderDate, 'MMMM dd yyyy')}
-                    </Typography>
-                  </TableCell>
+
                   <TableCell>
                     <Typography
                       variant="body1"
@@ -280,10 +272,45 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.sourceName}
+                      {cryptoOrder.orderDetails}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" noWrap>
-                      {cryptoOrder.sourceDesc}
+                      {cryptoOrder.orderDate}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      FIFA WORLD CUP
+                    </Typography>
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      England vs France
+                    </Typography>
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      1.34
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -295,13 +322,40 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       noWrap
                     >
                       {cryptoOrder.amountCrypto.toFixed(2)}
-                      {/* {cryptoOrder.cryptoCurrency} */}
                     </Typography>
-                    {/* <Typography variant="body2" color="text.secondary" noWrap>
-                      {numeral(cryptoOrder.amount).format(
-                        `${cryptoOrder.currency}0,0.00`
-                      )}
-                    </Typography> */}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {cryptoOrder.amountCrypto.toFixed(2)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {cryptoOrder.amountCrypto.toFixed(2)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {cryptoOrder.amountCrypto.toFixed(2)}
+                    </Typography>
                   </TableCell>
                   <TableCell align="right">
                     {getStatusLabel(cryptoOrder.status)}
