@@ -6,6 +6,7 @@ import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
+import Players from './content/applications/Players';
 
 const Loader = (Component) => (props) =>
   (
@@ -134,7 +135,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'player',
-        element: <Bets />
+        element: <Players />
       },
       {
         path: 'risk',

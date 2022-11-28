@@ -81,7 +81,7 @@ function ApplicationsTransactions() {
             </List>
           </Card>
         </Grid>
-        <Grid
+        {/* <Grid
           container
           direction="row"
           justifyContent="center"
@@ -92,7 +92,7 @@ function ApplicationsTransactions() {
           <Grid item xs={12}>
             <RecentOrders />
           </Grid>
-        </Grid>
+        </Grid> */}
       </Container>
       <Footer />
     </>
