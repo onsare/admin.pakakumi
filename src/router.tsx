@@ -24,6 +24,9 @@ const Overview = Loader(lazy(() => import('src/content/dashboards/overview')));
 // Applications
 
 const Bets = Loader(lazy(() => import('src/content/applications/Bets')));
+const BetsManager = Loader(
+  lazy(() => import('src/content/applications/BetsManager'))
+);
 const Risk = Loader(lazy(() => import('src/content/applications/Risk')));
 const Deposits = Loader(
   lazy(() => import('src/content/applications/Deposits'))
@@ -126,12 +129,8 @@ const routes: RouteObject[] = [
     element: <SidebarLayout />,
     children: [
       {
-        path: '',
-        element: <Navigate to="transactions" replace />
-      },
-      {
         path: 'bets',
-        element: <Bets />
+        element: <BetsManager />
       },
       {
         path: 'player',
@@ -140,6 +139,10 @@ const routes: RouteObject[] = [
       {
         path: 'risk',
         element: <Risk />
+      },
+      {
+        path: 'promos',
+        element: <h1>promo</h1>
       }
     ]
   },

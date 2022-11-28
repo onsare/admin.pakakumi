@@ -219,14 +219,14 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                 />
               </TableCell>
               <TableCell>Ref ID</TableCell>
-              <TableCell>Type</TableCell>
+              <TableCell>Market</TableCell>
               <TableCell>Competition</TableCell>
               <TableCell>Event</TableCell>
               <TableCell>Odd</TableCell>
               <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">WHT</TableCell>
-              <TableCell align="right">Excise</TableCell>
+
               <TableCell align="right">Payout</TableCell>
+              <TableCell align="right">Win /Lost</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
@@ -263,6 +263,9 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                     >
                       {cryptoOrder.orderID}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary" noWrap>
+                      {cryptoOrder.orderDate}
+                    </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
@@ -273,9 +276,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       noWrap
                     >
                       {cryptoOrder.orderDetails}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {cryptoOrder.orderDate}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -324,6 +324,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       {cryptoOrder.amountCrypto.toFixed(2)}
                     </Typography>
                   </TableCell>
+
                   <TableCell align="right">
                     <Typography
                       variant="body1"
@@ -335,6 +336,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       {cryptoOrder.amountCrypto.toFixed(2)}
                     </Typography>
                   </TableCell>
+
                   <TableCell align="right">
                     <Typography
                       variant="body1"
@@ -343,25 +345,14 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.amountCrypto.toFixed(2)}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.amountCrypto.toFixed(2)}
+                      Lost
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
                     {getStatusLabel(cryptoOrder.status)}
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="View" arrow>
+                    <Tooltip title="Edit" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -372,7 +363,19 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                         color="inherit"
                         size="small"
                       >
-                        <button>Details</button>
+                        <EditTwoToneIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" arrow>
+                      <IconButton
+                        sx={{
+                          '&:hover': { background: theme.colors.error.lighter },
+                          color: theme.palette.error.main
+                        }}
+                        color="inherit"
+                        size="small"
+                      >
+                        <DeleteTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>

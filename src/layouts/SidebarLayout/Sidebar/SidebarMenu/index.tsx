@@ -286,6 +286,17 @@ function SidebarMenu() {
                   Risk Management
                 </Button>
               </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  component={RouterLink}
+                  onClick={closeSidebar}
+                  to="/management/promos"
+                  startIcon={<TableChartTwoToneIcon />}
+                >
+                  Promotions
+                </Button>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>
