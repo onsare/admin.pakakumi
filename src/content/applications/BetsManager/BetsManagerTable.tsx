@@ -1,7 +1,5 @@
 import { FC, ChangeEvent, useState } from 'react';
-import { format } from 'date-fns';
-import numeral from 'numeral';
-import PropTypes from 'prop-types';
+
 import {
   Tooltip,
   Divider,
@@ -26,21 +24,21 @@ import {
 } from '@mui/material';
 
 import Label from 'src/components/Label';
-import { CryptoOrder, CryptoOrderStatus } from 'src/types/crypto_order';
+import { BetType, BetStatus } from 'src/types/bets';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import BulkActions from './BulkActions';
 
-interface RecentOrdersTableProps {
+interface BetsTableProps {
   className?: string;
-  cryptoOrders: CryptoOrder[];
+  bets: BetType[];
 }
 
 interface Filters {
-  status?: CryptoOrderStatus;
+  status?: BetStatus;
 }
 
-const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
+const getStatusLabel = (betStatus: BetStatus): JSX.Element => {
   const map = {
     failed: {
       text: 'Failed',
@@ -56,19 +54,16 @@ const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
     }
   };
 
-  const { text, color }: any = map[cryptoOrderStatus];
+  const { text, color }: any = map[betStatus];
 
   return <Label color={color}>{text}</Label>;
 };
 
-const applyFilters = (
-  cryptoOrders: CryptoOrder[],
-  filters: Filters
-): CryptoOrder[] => {
-  return cryptoOrders.filter((cryptoOrder) => {
+const applyFilters = (bets: BetType[], filters: Filters): BetType[] => {
+  return bets.filter((bet) => {
     let matches = true;
 
-    if (filters.status && cryptoOrder.status !== filters.status) {
+    if (filters.status && bet.status !== filters.status) {
       matches = false;
     }
 
@@ -77,18 +72,16 @@ const applyFilters = (
 };
 
 const applyPagination = (
-  cryptoOrders: CryptoOrder[],
+  bets: BetType[],
   page: number,
   limit: number
-): CryptoOrder[] => {
-  return cryptoOrders.slice(page * limit, page * limit + limit);
+): BetType[] => {
+  return bets.slice(page * limit, page * limit + limit);
 };
 
-const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
-  const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
-    []
-  );
-  const selectedBulkActions = selectedCryptoOrders.length > 0;
+const BetsTableManager: FC<BetsTableProps> = ({ bets }) => {
+  const [selectBet, setSelectedBets] = useState<string[]>([]);
+  const selectedBulkActions = selectBet.length > 0;
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({
@@ -127,28 +120,21 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     }));
   };
 
-  const handleSelectAllCryptoOrders = (
+  const handleSelectedAllBets = (
     event: ChangeEvent<HTMLInputElement>
   ): void => {
-    setSelectedCryptoOrders(
-      event.target.checked
-        ? cryptoOrders.map((cryptoOrder) => cryptoOrder.id)
-        : []
-    );
+    setSelectedBets(event.target.checked ? bets.map((bet) => bet.id) : []);
   };
 
-  const handleSelectOneCryptoOrder = (
+  const handleSelectOneBet = (
     event: ChangeEvent<HTMLInputElement>,
-    cryptoOrderId: string
+    betId: string
   ): void => {
-    if (!selectedCryptoOrders.includes(cryptoOrderId)) {
-      setSelectedCryptoOrders((prevSelected) => [
-        ...prevSelected,
-        cryptoOrderId
-      ]);
+    if (!selectBet.includes(betId)) {
+      setSelectedBets((prevSelected) => [...prevSelected, betId]);
     } else {
-      setSelectedCryptoOrders((prevSelected) =>
-        prevSelected.filter((id) => id !== cryptoOrderId)
+      setSelectedBets((prevSelected) =>
+        prevSelected.filter((id) => id !== betId)
       );
     }
   };
@@ -161,17 +147,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     setLimit(parseInt(event.target.value));
   };
 
-  const filteredCryptoOrders = applyFilters(cryptoOrders, filters);
-  const paginatedCryptoOrders = applyPagination(
-    filteredCryptoOrders,
-    page,
-    limit
-  );
-  const selectedSomeCryptoOrders =
-    selectedCryptoOrders.length > 0 &&
-    selectedCryptoOrders.length < cryptoOrders.length;
-  const selectedAllCryptoOrders =
-    selectedCryptoOrders.length === cryptoOrders.length;
+  const filteredBets = applyFilters(bets, filters);
+  const paginatedBets = applyPagination(filteredBets, page, limit);
+  const selectedSomeBets =
+    selectBet.length > 0 && selectBet.length < bets.length;
+  const selectedAllBets = selectBet.length === bets.length;
   const theme = useTheme();
 
   return (
@@ -202,7 +182,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
               </FormControl>
             </Box>
           }
-          title="Withdrawals"
+          title="Bets"
         />
       )}
       <Divider />
@@ -213,40 +193,40 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  checked={selectedAllCryptoOrders}
-                  indeterminate={selectedSomeCryptoOrders}
-                  onChange={handleSelectAllCryptoOrders}
+                  checked={selectedAllBets}
+                  indeterminate={selectedSomeBets}
+                  onChange={handleSelectedAllBets}
                 />
               </TableCell>
+              <TableCell>Ref ID</TableCell>
               <TableCell>Type</TableCell>
-              <TableCell>Txn ID</TableCell>
-              <TableCell>Phone No.</TableCell>
+              <TableCell>Competition</TableCell>
+              <TableCell>Event</TableCell>
+              <TableCell>Odd</TableCell>
               <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">WHT</TableCell>
+              <TableCell align="right">Excise</TableCell>
+              <TableCell align="right">Payout</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCryptoOrders.map((cryptoOrder) => {
-              const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                cryptoOrder.id
-              );
+            {paginatedBets.map((bet) => {
+              const isBetSelected = selectBet.includes(bet.id);
               return (
-                <TableRow
-                  hover
-                  key={cryptoOrder.id}
-                  selected={isCryptoOrderSelected}
-                >
+                <TableRow hover key={bet.id} selected={isBetSelected}>
                   <TableCell padding="checkbox">
                     <Checkbox
                       color="primary"
-                      checked={isCryptoOrderSelected}
+                      checked={isBetSelected}
                       onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneCryptoOrder(event, cryptoOrder.id)
+                        handleSelectOneBet(event, bet.id)
                       }
-                      value={isCryptoOrderSelected}
+                      value={isBetSelected}
                     />
                   </TableCell>
+
                   <TableCell>
                     <Typography
                       variant="body1"
@@ -255,10 +235,10 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.orderDetails}
+                      {bet.ref_id}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" noWrap>
-                      {format(cryptoOrder.orderDate, 'MMMM dd yyyy')}
+                      {bet.date}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -269,21 +249,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.orderID}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.sourceName}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {cryptoOrder.sourceDesc}
+                      {bet.type}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -294,20 +260,82 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.amountCrypto.toFixed(2)}
-                      {/* {cryptoOrder.cryptoCurrency} */}
+                      {bet.competition}
                     </Typography>
-                    {/* <Typography variant="body2" color="text.secondary" noWrap>
-                      {numeral(cryptoOrder.amount).format(
-                        `${cryptoOrder.currency}0,0.00`
-                      )}
-                    </Typography> */}
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {bet.event}
+                    </Typography>
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {bet.odd}
+                    </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    {getStatusLabel(cryptoOrder.status)}
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {bet.amount.toFixed(2)}
+                    </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="Edit" arrow>
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {bet.wht.toFixed(2)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {bet.excise.toFixed(2)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {bet.payout.toFixed(2)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    {getStatusLabel(bet.status)}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Tooltip title="View" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -318,19 +346,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                         color="inherit"
                         size="small"
                       >
-                        <EditTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
+                        <button>Details</button>
                       </IconButton>
                     </Tooltip>
                   </TableCell>
@@ -343,7 +359,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
       <Box p={2}>
         <TablePagination
           component="div"
-          count={filteredCryptoOrders.length}
+          count={filteredBets.length}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleLimitChange}
           page={page}
@@ -355,12 +371,4 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   );
 };
 
-RecentOrdersTable.propTypes = {
-  cryptoOrders: PropTypes.array.isRequired
-};
-
-RecentOrdersTable.defaultProps = {
-  cryptoOrders: []
-};
-
-export default RecentOrdersTable;
+export default BetsTableManager;

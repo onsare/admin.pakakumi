@@ -77,7 +77,7 @@ const TsAvatar = styled(Box)(
 `
 );
 
-function Hero() {
+function Auth() {
   return (
     <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
       <Grid
@@ -134,4 +134,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default Auth;

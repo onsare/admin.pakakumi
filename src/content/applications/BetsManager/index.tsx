@@ -2,13 +2,13 @@ import { Helmet } from 'react-helmet-async';
 import { Grid, Container } from '@mui/material';
 import Footer from 'src/components/Footer';
 
-import RecentOrders from './RecentOrders';
+import Bets from './Data';
 
-function ApplicationsTransactions() {
+function BetsManager() {
   return (
     <>
       <Helmet>
-        <title>Bets - Applications</title>
+        <title>Bets Management - Applications</title>
       </Helmet>
 
       <Container maxWidth="lg">
@@ -20,7 +20,7 @@ function ApplicationsTransactions() {
           spacing={3}
         >
           <Grid item xs={12} mt={3}>
-            <RecentOrders />
+            <Bets />
           </Grid>
         </Grid>
       </Container>
@@ -29,4 +29,4 @@ function ApplicationsTransactions() {
   );
 }
 
-export default ApplicationsTransactions;
+export default BetsManager;

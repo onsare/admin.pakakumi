@@ -4,7 +4,7 @@ import Footer from 'src/components/Footer';
 
 import Players from './Data';
 
-function ApplicationsTransactions() {
+function Player() {
   return (
     <>
       <Helmet>
@@ -29,4 +29,4 @@ function ApplicationsTransactions() {
   );
 }
 
-export default ApplicationsTransactions;
+export default Player;

@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import ViewWeekTwoToneIcon from '@mui/icons-material/ViewWeekTwoTone';
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
-import WatchListColumn from './WatchListColumn';
-import WatchListRow from './WatchListRow';
+import WatchListColumn from './SummaryColumn';
+import WatchListRow from './SummaryRow';
 
 const EmptyResultsWrapper = styled('img')(
   ({ theme }) => `

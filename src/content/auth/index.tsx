@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { styled } from '@mui/material/styles';
 import Logo from 'src/components/LogoSign';
-import Hero from './Hero';
+import Hero from './Auth';
 
 const OverviewWrapper = styled(Box)(
   () => `
@@ -30,7 +30,7 @@ const MuiAvatar = styled(Box)(
 `
 );
 
-function Overview() {
+function Login() {
   return (
     <OverviewWrapper>
       <Helmet>
@@ -50,4 +50,4 @@ function Overview() {
   );
 }
 
-export default Overview;
+export default Login;

@@ -3,17 +3,15 @@ import { Helmet } from 'react-helmet-async';
 import { Grid, Container } from '@mui/material';
 import Footer from 'src/components/Footer';
 
-import RecentOrders from './RecentOrders';
+import RecentOrders from './Data';
 
-function ApplicationsTransactions() {
+function Withdrawals() {
   return (
     <>
       <Helmet>
-        <title>Transactions - Applications</title>
+        <title>Withdrawals - Applications</title>
       </Helmet>
-      {/* <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper> */}
+
       <Container maxWidth="lg">
         <Grid
           container
@@ -32,4 +30,4 @@ function ApplicationsTransactions() {
   );
 }
 
-export default ApplicationsTransactions;
+export default Withdrawals;
