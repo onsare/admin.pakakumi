@@ -29,6 +29,8 @@ import Label from 'src/components/Label';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import BulkActions from './BulkActions';
+import { ViewAgendaTwoTone } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 interface RecentOrdersTableProps {
   className?: string;
@@ -320,19 +322,21 @@ const PlayersTable: FC<RecentOrdersTableProps> = ({ players }) => {
                     {getStatusLabel(player.status)}
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="Edit" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
-                          },
-                          color: theme.palette.primary.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <EditTwoToneIcon fontSize="small" />
-                      </IconButton>
+                    <Tooltip title="Manage Player" arrow>
+                      <Link to={`/management/player/${player.id}`}>
+                        <IconButton
+                          sx={{
+                            '&:hover': {
+                              background: theme.colors.primary.lighter
+                            },
+                            color: theme.palette.primary.main
+                          }}
+                          color="inherit"
+                          size="small"
+                        >
+                          <ViewAgendaTwoTone fontSize="small" />
+                        </IconButton>
+                      </Link>
                     </Tooltip>
                     <Tooltip title="Delete" arrow>
                       <IconButton

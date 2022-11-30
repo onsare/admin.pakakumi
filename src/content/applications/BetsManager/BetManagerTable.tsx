@@ -24,21 +24,23 @@ import {
 } from '@mui/material';
 
 import Label from 'src/components/Label';
-import { DepositType, DepositStatus } from 'src/types/deposits';
+import { BetType, BetStatus } from 'src/types/bets';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import { ViewAgendaTwoTone } from '@mui/icons-material';
 import BulkActions from './BulkActions';
+import { Link } from 'react-router-dom';
 
 interface BetsTableProps {
   className?: string;
-  deposits: DepositType[];
+  bets: BetType[];
 }
 
 interface Filters {
-  status?: DepositStatus;
+  status?: BetStatus;
 }
 
-const getStatusLabel = (betStatus: DepositStatus): JSX.Element => {
+const getStatusLabel = (betStatus: BetStatus): JSX.Element => {
   const map = {
     failed: {
       text: 'Failed',
@@ -59,7 +61,7 @@ const getStatusLabel = (betStatus: DepositStatus): JSX.Element => {
   return <Label color={color}>{text}</Label>;
 };
 
-const applyFilters = (bets: DepositType[], filters: Filters): DepositType[] => {
+const applyFilters = (bets: BetType[], filters: Filters): BetType[] => {
   return bets.filter((bet) => {
     let matches = true;
 
@@ -72,14 +74,14 @@ const applyFilters = (bets: DepositType[], filters: Filters): DepositType[] => {
 };
 
 const applyPagination = (
-  bets: DepositType[],
+  bets: BetType[],
   page: number,
   limit: number
-): DepositType[] => {
+): BetType[] => {
   return bets.slice(page * limit, page * limit + limit);
 };
 
-const Deposits: FC<BetsTableProps> = ({ deposits }) => {
+const BetsTableManager: FC<BetsTableProps> = ({ bets }) => {
   const [selectBet, setSelectedBets] = useState<string[]>([]);
   const selectedBulkActions = selectBet.length > 0;
   const [page, setPage] = useState<number>(0);
@@ -123,20 +125,18 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
   const handleSelectedAllBets = (
     event: ChangeEvent<HTMLInputElement>
   ): void => {
-    setSelectedBets(
-      event.target.checked ? deposits.map((deposit) => deposit.id) : []
-    );
+    setSelectedBets(event.target.checked ? bets.map((bet) => bet.id) : []);
   };
 
   const handleSelectOneBet = (
     event: ChangeEvent<HTMLInputElement>,
-    depositId: string
+    betId: string
   ): void => {
-    if (!selectBet.includes(depositId)) {
-      setSelectedBets((prevSelected) => [...prevSelected, depositId]);
+    if (!selectBet.includes(betId)) {
+      setSelectedBets((prevSelected) => [...prevSelected, betId]);
     } else {
       setSelectedBets((prevSelected) =>
-        prevSelected.filter((id) => id !== depositId)
+        prevSelected.filter((id) => id !== betId)
       );
     }
   };
@@ -149,11 +149,11 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
     setLimit(parseInt(event.target.value));
   };
 
-  const filteredBets = applyFilters(deposits, filters);
+  const filteredBets = applyFilters(bets, filters);
   const paginatedBets = applyPagination(filteredBets, page, limit);
   const selectedSomeBets =
-    selectBet.length > 0 && selectBet.length < deposits.length;
-  const selectedAllBets = selectBet.length === deposits.length;
+    selectBet.length > 0 && selectBet.length < bets.length;
+  const selectedAllBets = selectBet.length === bets.length;
   const theme = useTheme();
 
   return (
@@ -184,7 +184,7 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
               </FormControl>
             </Box>
           }
-          title="Bets"
+          title="Bet VUVX70"
         />
       )}
       <Divider />
@@ -192,39 +192,20 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={selectedAllBets}
-                  indeterminate={selectedSomeBets}
-                  onChange={handleSelectedAllBets}
-                />
-              </TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Txn Id</TableCell>
-              <TableCell>Source</TableCell>
-              <TableCell align="right">Amount</TableCell>
-
+              <TableCell>Event</TableCell>
+              <TableCell>Competition</TableCell>
+              <TableCell align="right">Odd</TableCell>
+              <TableCell align="right">Pick</TableCell>
+              <TableCell align="right">Outcome</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedBets.map((deposit) => {
-              const isBetSelected = selectBet.includes(deposit.id);
+            {paginatedBets.map((bet) => {
+              const isBetSelected = selectBet.includes(bet.id);
               return (
-                <TableRow hover key={deposit.id} selected={isBetSelected}>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isBetSelected}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneBet(event, deposit.id)
-                      }
-                      value={isBetSelected}
-                    />
-                  </TableCell>
-
+                <TableRow hover key={bet.id} selected={isBetSelected}>
                   <TableCell>
                     <Typography
                       variant="body1"
@@ -233,10 +214,7 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
                       gutterBottom
                       noWrap
                     >
-                      {deposit.type}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {deposit.date}
+                      France vs. Germany
                     </Typography>
                   </TableCell>
 
@@ -248,25 +226,9 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
                       gutterBottom
                       noWrap
                     >
-                      {deposit.transaction_id}
+                      World Cup
                     </Typography>
                   </TableCell>
-
-                  <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {deposit.payment_source}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {deposit.mpesa_no}
-                    </Typography>
-                  </TableCell>
-
                   <TableCell align="right">
                     <Typography
                       variant="body1"
@@ -275,14 +237,38 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
                       gutterBottom
                       noWrap
                     >
-                      {deposit.amount}
+                      1.34
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    {getStatusLabel(deposit.status)}
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      France
+                    </Typography>
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Typography
+                      variant="body1"
+                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      Lost
+                    </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="Edit" arrow>
+                    {getStatusLabel(bet.status)}
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Tooltip title="Manage" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -330,4 +316,4 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
   );
 };
 
-export default Deposits;
+export default BetsTableManager;

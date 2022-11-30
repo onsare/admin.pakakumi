@@ -27,7 +27,9 @@ import Label from 'src/components/Label';
 import { BetType, BetStatus } from 'src/types/bets';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import { ViewAgendaTwoTone } from '@mui/icons-material';
 import BulkActions from './BulkActions';
+import { Link } from 'react-router-dom';
 
 interface BetsTableProps {
   className?: string;
@@ -199,9 +201,6 @@ const BetsTableManager: FC<BetsTableProps> = ({ bets }) => {
                 />
               </TableCell>
               <TableCell>Ref ID</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Competition</TableCell>
-              <TableCell>Event</TableCell>
               <TableCell>Odd</TableCell>
               <TableCell align="right">Amount</TableCell>
               <TableCell align="right">WHT</TableCell>
@@ -241,42 +240,8 @@ const BetsTableManager: FC<BetsTableProps> = ({ bets }) => {
                       {bet.date}
                     </Typography>
                   </TableCell>
+
                   <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {bet.type}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {bet.competition}
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {bet.event}
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell align="right">
                     <Typography
                       variant="body1"
                       fontWeight="bold"
@@ -334,19 +299,34 @@ const BetsTableManager: FC<BetsTableProps> = ({ bets }) => {
                   <TableCell align="right">
                     {getStatusLabel(bet.status)}
                   </TableCell>
+
                   <TableCell align="right">
-                    <Tooltip title="View" arrow>
+                    <Tooltip title="Manage" arrow>
+                      <Link to={`/management/bets/${bet.id}`}>
+                        <IconButton
+                          sx={{
+                            '&:hover': {
+                              background: theme.colors.primary.lighter
+                            },
+                            color: theme.palette.primary.main
+                          }}
+                          color="inherit"
+                          size="small"
+                        >
+                          <ViewAgendaTwoTone fontSize="small" />
+                        </IconButton>
+                      </Link>
+                    </Tooltip>
+                    <Tooltip title="Delete" arrow>
                       <IconButton
                         sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
-                          },
-                          color: theme.palette.primary.main
+                          '&:hover': { background: theme.colors.error.lighter },
+                          color: theme.palette.error.main
                         }}
                         color="inherit"
                         size="small"
                       >
-                        <button>Details</button>
+                        <DeleteTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>

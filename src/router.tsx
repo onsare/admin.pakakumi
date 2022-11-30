@@ -7,6 +7,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import Players from './content/applications/Players';
+import Player from './content/applications/Players/Player';
 
 const Loader = (Component) => (props) =>
   (
@@ -26,6 +27,9 @@ const Overview = Loader(lazy(() => import('src/content/dashboards/overview')));
 const Bets = Loader(lazy(() => import('src/content/applications/Bets')));
 const BetsManager = Loader(
   lazy(() => import('src/content/applications/BetsManager'))
+);
+const BetManager = Loader(
+  lazy(() => import('src/content/applications/BetsManager/BetManager'))
 );
 const Risk = Loader(lazy(() => import('src/content/applications/Risk')));
 const Deposits = Loader(
@@ -133,9 +137,14 @@ const routes: RouteObject[] = [
         element: <BetsManager />
       },
       {
+        path: 'bets/:id',
+        element: <BetManager />
+      },
+      {
         path: 'player',
         element: <Players />
       },
+      { path: 'player/:id', element: <Player /> },
       {
         path: 'risk',
         element: <Risk />

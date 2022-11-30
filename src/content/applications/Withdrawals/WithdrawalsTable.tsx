@@ -202,7 +202,7 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
               </TableCell>
               <TableCell>Type</TableCell>
               <TableCell>Txn Id</TableCell>
-              <TableCell align="right">Source</TableCell>
+              <TableCell>Source</TableCell>
               <TableCell align="right">Amount</TableCell>
 
               <TableCell align="right">Status</TableCell>
@@ -252,7 +252,7 @@ const Deposits: FC<BetsTableProps> = ({ deposits }) => {
                     </Typography>
                   </TableCell>
 
-                  <TableCell align="right">
+                  <TableCell>
                     <Typography
                       variant="body1"
                       fontWeight="bold"

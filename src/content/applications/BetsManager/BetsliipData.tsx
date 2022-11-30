@@ -1,17 +1,6 @@
 import { Card } from '@mui/material';
 import { BetType } from 'src/types/bets';
-import BetsTable from './BetsManagerTable';
-
-// id: string;
-// type: string,
-// competition: string,
-// event: string,
-// odd: number,
-// amount: number,
-// wht: number,
-// excise: number,
-// payout:number,
-// status: BetStatus;
+import BetsTable from './BetManagerTable';
 
 function Bets() {
   const bets: BetType[] = [
