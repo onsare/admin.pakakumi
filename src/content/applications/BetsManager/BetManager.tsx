@@ -48,7 +48,7 @@ function BetsManager() {
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <CardInfo title="Outcome" amount={0} />
+              <CardInfo title="Event Odds" amount={344} />
             </Card>
           </Grid>
         </Grid>
