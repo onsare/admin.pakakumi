@@ -61,6 +61,12 @@ const StatusMaintenance = Loader(
   lazy(() => import('src/content/pages/Status/Maintenance'))
 );
 
+//Notifications
+
+const Notifications = Loader(
+  lazy(() => import('src/content/applications/Notifications'))
+);
+
 const routes: RouteObject[] = [
   {
     path: '',
@@ -166,6 +172,10 @@ const routes: RouteObject[] = [
       {
         path: 'user',
         element: <UserSettings />
+      },
+      {
+        path: 'notifications',
+        element: <Notifications />
       },
       {
         path: 'settings',
