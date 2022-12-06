@@ -67,6 +67,7 @@ const Notifications = Loader(
   lazy(() => import('src/content/applications/Notifications'))
 );
 
+const Promos = Loader(lazy(() => import('src/content/applications/Promo')));
 const routes: RouteObject[] = [
   {
     path: '',
@@ -157,7 +158,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'promos',
-        element: <h1>promo</h1>
+        element: <Promos />
       }
     ]
   },
