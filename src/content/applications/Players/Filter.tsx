@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Select,
   FormControl,
   MenuItem,
   InputLabel,
-  makeStyles
+  makeStyles,
+  Box,
+  Card,
+  TableContainer,
+  Typography
 } from '@mui/material';
 
-const useStyles: any = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  }
-}));
-
 export default function Filter() {
-  const classes = useStyles();
   const [filter, setFilter] = React.useState('');
+  const [timeInterval, setTimeInterval] = useState('time_interval');
+  const [groupBy, setGroupBy] = useState('month');
+  const [periodic, setPeriodic] = useState('yes');
 
   const handleChange = (event) => {
     setFilter(event.target.value);
@@ -28,21 +24,69 @@ export default function Filter() {
 
   return (
     <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="filter-label">Filter</InputLabel>
-        <Select
-          labelId="filter-label"
-          id="filter"
-          value={filter}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value="ascending">Ascending</MenuItem>
-          <MenuItem value="descending">Descending</MenuItem>
-        </Select>
-      </FormControl>
+      <TableContainer>
+        <Card>
+          <Box
+            sx={{
+              p: 3
+            }}
+          >
+            <Box display="flex" alignItems="center">
+              <Box>
+                <Typography variant="h4" noWrap>
+                  Filters
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              p: 3
+            }}
+          >
+            <FormControl style={{ width: 200 }}>
+              <InputLabel id="demo-simple-select-label">
+                Time Interval
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={timeInterval}
+                label="Time Interval"
+                onChange={() => {}}
+              >
+                <MenuItem value={'time_interval'}>Time Interval</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl style={{ width: 200 }}>
+              <InputLabel id="demo-simple-select-label">Group By</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={groupBy}
+                label="Time Interval"
+                onChange={() => {}}
+              >
+                <MenuItem value={'month'}>month</MenuItem>
+                <MenuItem value={'year'}>year</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl style={{ width: 200 }}>
+              <InputLabel id="demo-simple-select-label">Periodic</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={periodic}
+                label="Time Interval"
+                onChange={() => {}}
+              >
+                <MenuItem value={'yes'}>Yes</MenuItem>
+                <MenuItem value={'no'}>No</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Card>
+      </TableContainer>
     </div>
   );
 }

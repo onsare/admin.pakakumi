@@ -10,7 +10,13 @@ import {
   TableCell,
   TableRow,
   Button,
-  useTheme
+  useTheme,
+  Input,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  TableContainer
 } from '@mui/material';
 import Footer from 'src/components/Footer';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
@@ -26,6 +32,11 @@ import Wager from './Wager';
 import Referrals from './Referrals';
 import Bonus from './Bonus';
 import Activities from './Activity';
+import WithdrawalTable from './WithdrawalTable';
+import DepositTable from './DepositTable';
+import ReferralsTable from './ReferralsTable';
+import ReferralsPaymentTable from './ReferralsPaymentTable';
+import RevenueChart from './RevenueChart';
 
 function Player(props) {
   const theme = useTheme();
@@ -269,25 +280,32 @@ function Player(props) {
             </Card>
           </Grid>
           <Grid item xs={9}>
-            <Wager />
+            {/* Filters */}
 
+            <Filter />
+            <br />
+
+            <Wager />
             <br />
             <DepositChart />
             <br />
-
             <Withdrawals />
-
             <br />
-
+            <RevenueChart />
+            <br />
             <Referrals />
-
             <br />
-
+            <ReferralsTable />
+            <br />
+            <ReferralsPaymentTable />
+            <br />
             <Bonus />
-
             <br />
-
             <Activities />
+            <br />
+            <WithdrawalTable />
+            <br />
+            <DepositTable />
           </Grid>
         </Grid>
       </Container>
