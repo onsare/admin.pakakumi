@@ -9,7 +9,8 @@ import {
   Box,
   Card,
   TableContainer,
-  Typography
+  Typography,
+  Button
 } from '@mui/material';
 
 export default function Filter() {
@@ -44,7 +45,7 @@ export default function Filter() {
               p: 3
             }}
           >
-            <FormControl style={{ width: 200 }}>
+            <FormControl style={{ width: 250 }}>
               <InputLabel id="demo-simple-select-label">
                 Time Interval
               </InputLabel>
@@ -58,7 +59,7 @@ export default function Filter() {
                 <MenuItem value={'time_interval'}>Time Interval</MenuItem>
               </Select>
             </FormControl>
-            <FormControl style={{ width: 200 }}>
+            <FormControl style={{ width: 250 }}>
               <InputLabel id="demo-simple-select-label">Group By</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -71,7 +72,7 @@ export default function Filter() {
                 <MenuItem value={'year'}>year</MenuItem>
               </Select>
             </FormControl>
-            <FormControl style={{ width: 200 }}>
+            <FormControl style={{ width: 250 }}>
               <InputLabel id="demo-simple-select-label">Periodic</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -84,6 +85,19 @@ export default function Filter() {
                 <MenuItem value={'no'}>No</MenuItem>
               </Select>
             </FormControl>
+          </Box>
+          <Box
+            sx={{
+              p: 3
+            }}
+          >
+            <Button
+              size="medium"
+              variant="contained"
+              style={{ width: '100%', marginTop: 5 }}
+            >
+              APPLY
+            </Button>
           </Box>
         </Card>
       </TableContainer>
