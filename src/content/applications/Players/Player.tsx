@@ -4,14 +4,11 @@ import {
   Grid,
   Container,
   Card,
-  Avatar,
-  Box,
   CardContent,
   Typography,
   TableCell,
   TableRow,
-  Button,
-  useTheme
+  Button
 } from '@mui/material';
 import Footer from 'src/components/Footer';
 import CardInfo from './CardInfo';
@@ -29,12 +26,18 @@ import ReferralsTable from './ReferralsTable';
 import ReferralsPaymentTable from './ReferralsPaymentTable';
 import RevenueChart from './RevenueChart';
 import ChangeUsernameModal from './ChangeUsernameModal';
+import ConfirmPrompt from './ConfirmPrompt';
 
 function Player(props) {
   const [open, setIsOpen] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(true);
+  };
+
+  const deactivateUser = () => {
+    setConfirm(true);
   };
 
   return (
@@ -267,6 +270,7 @@ function Player(props) {
                           marginTop: 5,
                           background: 'red'
                         }}
+                        onClick={deactivateUser}
                       >
                         Deactivate
                       </Button>
@@ -307,6 +311,7 @@ function Player(props) {
         </Grid>
       </Container>
       <ChangeUsernameModal open={open} setIsOpen={setIsOpen} />
+      <ConfirmPrompt confirm={confirm} setConfirm={setConfirm} />
       <Footer />
     </>
   );
