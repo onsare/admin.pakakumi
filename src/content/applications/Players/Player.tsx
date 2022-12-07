@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   Grid,
@@ -10,21 +11,11 @@ import {
   TableCell,
   TableRow,
   Button,
-  useTheme,
-  Input,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  TableContainer
+  useTheme
 } from '@mui/material';
 import Footer from 'src/components/Footer';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 import CardInfo from './CardInfo';
-import Label from 'src/components/Label';
-import Text from 'src/components/Text';
-import Chart from 'react-apexcharts';
-import type { ApexOptions } from 'apexcharts';
+
 import Filter from './Filter';
 import DepositChart from './DepositChart';
 import Withdrawals from './Withdrawals';
@@ -37,9 +28,14 @@ import DepositTable from './DepositTable';
 import ReferralsTable from './ReferralsTable';
 import ReferralsPaymentTable from './ReferralsPaymentTable';
 import RevenueChart from './RevenueChart';
+import ChangeUsernameModal from './ChangeUsernameModal';
 
 function Player(props) {
-  const theme = useTheme();
+  const [open, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
 
   return (
     <>
@@ -259,6 +255,7 @@ function Player(props) {
                         size="medium"
                         variant="contained"
                         style={{ width: '100%', marginTop: 5 }}
+                        onClick={handleOpen}
                       >
                         Change Username
                       </Button>
@@ -309,6 +306,7 @@ function Player(props) {
           </Grid>
         </Grid>
       </Container>
+      <ChangeUsernameModal open={open} setIsOpen={setIsOpen} />
       <Footer />
     </>
   );
