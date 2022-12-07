@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   Grid,
@@ -8,7 +8,9 @@ import {
   Typography,
   TableCell,
   TableRow,
-  Button
+  Button,
+  Tabs,
+  Tab
 } from '@mui/material';
 import Footer from 'src/components/Footer';
 import CardInfo from './CardInfo';
@@ -27,6 +29,15 @@ import ReferralsPaymentTable from './ReferralsPaymentTable';
 import RevenueChart from './RevenueChart';
 import ChangeUsernameModal from './ChangeUsernameModal';
 import ConfirmPrompt from './ConfirmPrompt';
+import { styled } from '@mui/material/styles';
+
+const TabsWrapper = styled(Tabs)(
+  () => `
+    .MuiTabs-scrollableX {
+      overflow-x: auto !important;
+    }
+`
+);
 
 function Player(props) {
   const [open, setIsOpen] = useState(false);
@@ -38,6 +49,20 @@ function Player(props) {
 
   const deactivateUser = () => {
     setConfirm(true);
+  };
+
+  const [currentTab, setCurrentTab] = useState<string>('transactions');
+
+  const tabs = [
+    { value: 'transactions', label: 'Transactions' },
+    { value: 'charts', label: 'Charts' },
+    { value: 'referrals', label: 'Referrals' },
+    { value: 'user_activities', label: 'User Activities' },
+    { value: 'bonus', label: 'Bonus' }
+  ];
+
+  const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
+    setCurrentTab(value);
   };
 
   return (
@@ -286,27 +311,65 @@ function Player(props) {
             <Filter />
             <br />
 
-            <Wager />
-            <br />
-            <DepositChart />
-            <br />
-            <Withdrawals />
-            <br />
-            <RevenueChart />
-            <br />
-            <Referrals />
-            <br />
-            <ReferralsTable />
-            <br />
-            <ReferralsPaymentTable />
-            <br />
-            <Bonus />
-            <br />
-            <Activities />
-            <br />
-            <WithdrawalTable />
-            <br />
-            <DepositTable />
+            <Container maxWidth="lg">
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="stretch"
+                spacing={3}
+              >
+                <Grid item xs={12} mt={3}>
+                  <TabsWrapper
+                    onChange={handleTabsChange}
+                    value={currentTab}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    textColor="primary"
+                    indicatorColor="primary"
+                  >
+                    {tabs.map((tab) => (
+                      <Tab
+                        key={tab.value}
+                        label={tab.label}
+                        value={tab.value}
+                      />
+                    ))}
+                  </TabsWrapper>
+                </Grid>
+                <Grid item xs={12}>
+                  {currentTab === 'charts' && (
+                    <>
+                      <Wager />
+                      <br />
+                      <DepositChart />
+                      <br />
+                      <Withdrawals />
+                      <br />
+                      <RevenueChart />
+                    </>
+                  )}
+                  {currentTab === 'transactions' && (
+                    <>
+                      <WithdrawalTable />
+                      <br />
+                      <DepositTable />
+                    </>
+                  )}
+                  {currentTab === 'referrals' && (
+                    <>
+                      <Referrals />
+                      <br />
+                      <ReferralsTable />
+                      <br />
+                      <ReferralsPaymentTable />
+                    </>
+                  )}
+                  {currentTab === 'user_activities' && <Activities />}
+                  {currentTab === 'bonus' && <Bonus />}
+                </Grid>
+              </Grid>
+            </Container>
           </Grid>
         </Grid>
       </Container>
