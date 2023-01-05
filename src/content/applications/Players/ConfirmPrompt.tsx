@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   Modal,
   Container,
@@ -11,10 +12,10 @@ import {
 
 interface Props {
   confirm: boolean;
-  setConfirm: (a) => void;
+  setConfirm: (value: boolean) => void;
 }
 
-const ConfirmPrompt = ({ confirm, setConfirm }) => {
+const ConfirmPrompt: FC<Props> = ({ confirm, setConfirm }) => {
   const handleClose = () => {
     setConfirm(false);
   };

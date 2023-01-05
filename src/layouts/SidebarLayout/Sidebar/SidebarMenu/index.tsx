@@ -226,7 +226,7 @@ function SidebarMenu() {
                   to="/dashboards/withdrawals"
                   startIcon={<BrightnessLowTwoToneIcon />}
                 >
-                  Widthdrawals
+                  Withdrawals
                 </Button>
               </ListItem>
             </List>

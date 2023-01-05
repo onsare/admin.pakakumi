@@ -1,5 +1,4 @@
 import { Card } from '@mui/material';
-// import { CryptoOrder } from 'src/types/crypto_order';
 import PlayersTable from './PlayersTable';
 
 function RecentOrders() {

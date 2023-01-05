@@ -39,7 +39,7 @@ const TabsWrapper = styled(Tabs)(
 `
 );
 
-function Player(props) {
+function Player() {
   const [open, setIsOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
 

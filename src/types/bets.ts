@@ -1,4 +1,4 @@
-export type BetStatus = 'completed' | 'pending' | 'failed';
+export type BetStatus = 'completed' | 'pending' | 'failed' | null ;
 
 export interface BetType {
   id: string;

@@ -108,7 +108,7 @@ const BetsTable: FC<BetsTableProps> = ({ bets }) => {
   ];
 
   const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    let value = null;
+    let value: any = null;
 
     if (e.target.value !== 'all') {
       value = e.target.value;

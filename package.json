@@ -11,8 +11,8 @@
     "@mui/material": "5.8.2",
     "@mui/styles": "5.8.0",
     "@mui/x-data-grid": "^5.17.14",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "17.0.13",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
     "apexcharts": "3.35.3",
     "clsx": "1.1.1",
     "date-fns": "2.28.0",
@@ -54,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "5.27.0",
     "@typescript-eslint/parser": "5.27.0",
     "eslint": "8.17.0",
